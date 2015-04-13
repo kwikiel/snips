@@ -37,11 +37,12 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
       <div class="navbar">
-          <ul>
-              <li>Menu 1 </li>
-              <li>Menu 2 </li>
-              <li>Menu 3</li>
-          </ul>
+        <ul>
+        <li><a href="/">Home</a></li>
+        {% for article in articles %}
+            <li><a href="{{article.id}}">{{ article.title }}</a></li>
+        {% endfor %}
+    </ul>
       </div>
   </div>
 
@@ -62,4 +63,4 @@
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
-</html>
+
