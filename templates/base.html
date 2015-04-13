@@ -21,21 +21,39 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="static/css/normalize.css">
   <link rel="stylesheet" href="static/css/skeleton.css">
-
+  <link rel="stylesheet" href="static/css/custom.css">
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="static/images/favicon.png">
 
-</head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <link rel="stylesheet" href="css/github-prettify-theme.css">
+  <script src="static/site.js"></script>
+  </head>
 <body>
 
+  <!-- Experimental navbar menu
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+      <div class="navbar">
+          <ul>
+              <li>Menu 1 </li>
+              <li>Menu 2 </li>
+              <li>Menu 3</li>
+          </ul>
+      </div>
+  </div>
+
+
+  
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="twelve columns" style="margin-top:10%; margin-bottom: 10%">
-        <h4>Basic Page</h4>
-           <p>Article content</p>
+      <div class="twelve columns">
+          {% block content %}
+          {% endblock %}
       <div>
           
     </div>
