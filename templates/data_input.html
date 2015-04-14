@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
 {% block content %}
 <h2>New entry</h2>
-<form method="post" action="add"> 
-  <textarea class="u-full-width" placeholder="Hi Dave …" id="msg"></textarea>
-  <input class="button-primary" type="submit" value="Submit">
+<form method="post" action="/add">
+    <dl>
+        {{ render_field(form.title) }}
+        {{ render_field(form.content) }}
+    </dl>
+    <p><input type="submit" value="Add">
 </form>
 {% endblock %}

@@ -1,15 +1,22 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask import url_for
 from time import time
 from flask import request
+from wtforms import Form, TextField, TextAreaField, validators
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////root/skeleton/test.db'
 db = SQLAlchemy(app)
 
+
+class ArtForm(Form):
+    title = TextField('Title', [validators.Length(min=3,max=140)])
+    content = TextAreaField('Content')
+
 class Article(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key = True,autoincrement=True )
     title = db.Column(db.String(140), unique = True)
     content = db.Column(db.String(5000))
 
@@ -31,13 +38,13 @@ def show_post(post_id):
 
 @app.route('/add', methods=['GET','POST'])
 def add_new():
-    raw = request.form['msg']
-    if raw:
-        baz = Article(str(time.now()), raw)
-        db.session.add(baz)
+    form = ArtForm(request.form)
+    if request.method == 'POST' and form.validate():
+        prefetch = Article(form.title.data, form.content.data)
+        db.session.add(prefetch)
         db.session.commit()
-        return redirect('/')
-    return render_template('data_input.html')
+        return redirect(url_for('home'))
+    return render_template('data_input.html', form=form)
 
 
 if __name__ == '__main__':
