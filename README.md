@@ -1,6 +1,6 @@
 # snips
 Place for code snippets
 
-[img]http://i.imgur.com/JBUSksP.png[/img]
+![alt tag](http://i.imgur.com/JBUSksP.png)
 
 Build with light frameworks: Flask and Skeleton CSS
