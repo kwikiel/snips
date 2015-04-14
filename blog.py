@@ -6,11 +6,17 @@ from flask import url_for
 from time import time
 from flask import request
 from wtforms import Form, TextField, TextAreaField, validators
+#next is tricky
+from flask_admin.contrib.sqla import ModelView
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////root/skeleton/test.db'
+app.secret_key = 'rykdtfigcuohtgreafgsdhic;hpq'
+
 db = SQLAlchemy(app)
 admin = Admin(app)
+
 
 class ArtForm(Form):
     title = TextField('Title', [validators.Length(min=3,max=140)])
@@ -29,6 +35,7 @@ class Article(db.Model):
         return "Title: {title}, content: {content}".format(title=self.title, content=self.content)
 
 
+admin.add_view(ModelView(Article, db.session))
 @app.route('/')
 def home():
     return render_template('index.html', articles = Article.query.all())
