@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_admin import Admin
 from flask import render_template, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask import url_for
@@ -9,7 +10,7 @@ from wtforms import Form, TextField, TextAreaField, validators
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////root/skeleton/test.db'
 db = SQLAlchemy(app)
-
+admin = Admin(app)
 
 class ArtForm(Form):
     title = TextField('Title', [validators.Length(min=3,max=140)])
