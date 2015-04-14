@@ -38,11 +38,11 @@
   <div class="container">
       <div class="navbar">
         <ul>
-        <li><a href="/">Home</a></li>
-        {% for article in articles %}
-            <li><a href="{{article.id}}">{{ article.title }}</a></li>
-        {% endfor %}
-    </ul>
+            <b><a href="/">Home</a></b>
+            {% for article in articles %}
+                <li style="display: inline;"><a href="{{article.id}}">{{ article.title }}</a></li>
+            {% endfor %}
+        </ul>
       </div>
   </div>
 

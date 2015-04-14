@@ -1,6 +1,6 @@
 .navbar {
     margin-top: 5%   
 }
-li {
+#nav li {
     display: inline;
 }

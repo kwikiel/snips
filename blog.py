@@ -1,7 +1,9 @@
 from flask import Flask
 from flask import render_template
 from flask.ext.sqlalchemy import SQLAlchemy
-
+from flask import url_for
+from time import time
+from flask import request
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////root/skeleton/test.db'
 db = SQLAlchemy(app)
@@ -27,8 +29,16 @@ def home():
 def show_post(post_id):
     return render_template('single.html', article = Article.query.get(post_id), articles = Article.query.all())
 
-
+@app.route('/add', methods=['GET','POST'])
+def add_new():
+    raw = request.form['msg']
+    if raw:
+        baz = Article(str(time.now()), raw)
+        db.session.add(baz)
+        db.session.commit()
+        return redirect('/')
+    return render_template('data_input.html')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8081)
+    app.run(host='0.0.0.0',port=8081, debug=True)

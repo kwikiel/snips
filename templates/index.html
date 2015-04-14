@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-{% for article in articles %} 
-<h4> {{ article.title }} </h4>
-<p> {{ article.content|safe }} </p>
-
-{% endfor %}
+<h2>Code and thoughts</h2>
+Made with
+    <ul>
+        <li>Flask - python microframework</li>
+        <li>Skeleton - simple responsive css</li>
+        <li>SQLAlchemy - ORM for connecting to SQLlite</li>
+    </ul>
 {% endblock %}
