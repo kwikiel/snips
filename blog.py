@@ -8,14 +8,14 @@ from flask import request
 from wtforms import Form, TextField, TextAreaField, validators
 #next is tricky
 from flask_admin.contrib.sqla import ModelView
-
+#For deployment
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////root/skeleton/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.secret_key = 'rykdtfigcuohtgreafgsdhic;hpq'
 
 db = SQLAlchemy(app)
-admin = Admin(app)
 
 
 class ArtForm(Form):
@@ -35,7 +35,6 @@ class Article(db.Model):
         return "Title: {title}, content: {content}".format(title=self.title, content=self.content)
 
 
-admin.add_view(ModelView(Article, db.session))
 @app.route('/')
 def home():
     return render_template('index.html', articles = Article.query.all())
@@ -56,4 +55,8 @@ def add_new():
 
 #Ptl
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=5000, debug=True)
+    if os.path.isfile('test.db'):
+        app.run(host='0.0.0.0',port=5000, debug=True)
+    else:
+        db.create_all()
+        app.run(host='0.0.0.0',port=5000, debug=True)
