@@ -1,14 +1,9 @@
 from flask import Flask
-from flask_admin import Admin
 from flask import render_template, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask import url_for
-from time import time
 from flask import request
 from wtforms import Form, TextField, TextAreaField, validators
-#next is tricky
-from flask_admin.contrib.sqla import ModelView
-#For deployment
 import os
 
 app = Flask(__name__)
@@ -19,12 +14,13 @@ db = SQLAlchemy(app)
 
 
 class ArtForm(Form):
-    title = TextField('Title', [validators.Length(min=3,max=140)])
+    title = TextField('Title', [validators.Length(min=3, max=140)])
     content = TextAreaField('Content')
 
+
 class Article(db.Model):
-    id = db.Column(db.Integer, primary_key = True,autoincrement=True )
-    title = db.Column(db.String(140), unique = True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(140), unique=True)
     content = db.Column(db.String(5000))
 
     def __init__(self, title, content):
@@ -32,18 +28,24 @@ class Article(db.Model):
         self.content = content
 
     def __repr__(self):
-        return "Title: {title}, content: {content}".format(title=self.title, content=self.content)
+        return "Title: {title}, content: {content}".format(
+            title=self.title,
+            content=self.content)
 
 
 @app.route('/')
 def home():
-    return render_template('index.html', articles = Article.query.all())
+    return render_template('index.html', articles=Article.query.all())
+
 
 @app.route('/<int:post_id>')
 def show_post(post_id):
-    return render_template('single.html', article = Article.query.get(post_id), articles = Article.query.all())
+    return render_template('single.html',
+                           article=Article.query.get(post_id),
+                           articles=Article.query.all())
 
-@app.route('/add', methods=['GET','POST'])
+
+@app.route('/add', methods=['GET', 'POST'])
 def add_new():
     form = ArtForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -53,10 +55,9 @@ def add_new():
         return redirect(url_for('home'))
     return render_template('data_input.html', form=form)
 
-#Ptl
 if __name__ == '__main__':
     if os.path.isfile('test.db'):
-        app.run(host='0.0.0.0',port=5000, debug=True)
+        app.run(host='0.0.0.0', port=5000)
     else:
         db.create_all()
-        app.run(host='0.0.0.0',port=5000, debug=True)
+        app.run(host='0.0.0.0', port=5000)
