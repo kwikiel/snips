@@ -3,4 +3,6 @@ python:
         - "3.4"
 install:
         - pip install -r requirements.txt
-script: python tests2.py
+script:
+        - python blog.py
+        - python tests2.py
