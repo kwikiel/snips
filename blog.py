@@ -4,10 +4,9 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask import url_for
 from flask import request
 from wtforms import Form, TextField, TextAreaField, validators
-import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://db_blog:561e056b2e3a7d58cb10d98bb6051424b237eb9739cec558205ffd4245828f3f@postgres:5432/db_blog'
 app.secret_key = 'rykdtfigcuohtgreafgsdhic;hpq'
 
 db = SQLAlchemy(app)
@@ -56,8 +55,5 @@ def add_new():
     return render_template('data_input.html', form=form)
 
 if __name__ == '__main__':
-    if os.path.isfile('test.db'):
-        app.run(host='0.0.0.0', port=5000)
-    else:
         db.create_all()
         app.run(host='0.0.0.0', port=5000)
