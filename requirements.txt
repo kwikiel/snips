@@ -11,4 +11,3 @@ itsdangerous==0.24
 ohmu==0.5.0
 psycopg2==2.6.1
 selenium==2.48.0
-wsgiref==0.1.2
