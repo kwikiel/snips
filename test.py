@@ -1,6 +1,9 @@
 from blog import app
 import unittest
 
+app.config['DEBUG'] = True
+app.config['TESTING'] = True
+
 
 class FlaskTestCase(unittest.TestCase):
     def test_index(self):
