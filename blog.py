@@ -6,7 +6,7 @@ from flask import request
 from wtforms import Form, TextField, TextAreaField, validators
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://db_blog:561e056b2e3a7d58cb10d98bb6051424b237eb9739cec558205ffd4245828f3f@postgres:5432/db_blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.secret_key = 'rykdtfigcuohtgreafgsdhic;hpq'
 
 db = SQLAlchemy(app)
