@@ -8,6 +8,7 @@ from wtforms import Form, TextField, TextAreaField, validators
 app = Flask(__name__)
 
 
+db = SQLAlchemy(app)
 
 class ArtForm(Form):
     title = TextField('Title', [validators.Length(min=3, max=140)])
@@ -33,7 +34,6 @@ class Article(db.Model):
 
 if app.config['TESTING'] == True:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
-    db = SQLAlchemy(app)
     db.create_all()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.secret_key = 'rykdtfigcuohtgreafgsdhic;hpq'
