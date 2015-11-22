@@ -6,7 +6,7 @@ from flask import request
 from wtforms import Form, TextField, TextAreaField, validators
 
 app = Flask(__name__)
-if app.config['TESTING'] = True:
+if app.config['TESTING'] == True:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.secret_key = 'rykdtfigcuohtgreafgsdhic;hpq'
