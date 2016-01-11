@@ -6,11 +6,9 @@ from flask import request
 from wtforms import Form, TextField, TextAreaField, validators
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-app.secret_key = 'rykdtfigcuohtgreafgsdhic;hpq'
+
 
 db = SQLAlchemy(app)
-
 
 class ArtForm(Form):
     title = TextField('Title', [validators.Length(min=3, max=140)])
@@ -31,6 +29,16 @@ class Article(db.Model):
             title=self.title,
             content=self.content)
 
+# Consider moving above to separate model files
+
+
+if app.config['TESTING'] == True:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+    db.create_all()
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.secret_key = 'rykdtfigcuohtgreafgsdhic;hpq'
+
+db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
